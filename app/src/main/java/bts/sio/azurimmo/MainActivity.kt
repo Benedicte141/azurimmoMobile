@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import bts.sio.azurimmo.ui.theme.AzurimmoTheme
+import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentList
 
 class MainActivity : ComponentActivity() {
@@ -46,4 +47,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     @Composable
     fun PreviewBatimentList() {
         BatimentList()
+}
+
+// Fonction pour prévisualiser l'interface
+@Preview(showBackground = true)
+@Composable
+fun PreviewAppartementList() {
+   AppartementList()
 }
