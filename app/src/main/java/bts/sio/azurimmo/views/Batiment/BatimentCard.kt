@@ -1,4 +1,4 @@
-package bts.sio.azurimmo.views.views
+package bts.sio.azurimmo.views.Batiment
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

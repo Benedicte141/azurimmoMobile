@@ -1,4 +1,4 @@
-package bts.sio.azurimmo.views.views
+package bts.sio.azurimmo.views.Batiment
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 
 // Fonction Composable pour afficher la liste des bâtiments
