@@ -11,7 +11,7 @@ import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 
 // Fonction Composable pour afficher la liste des bâtiments
 @Composable
-fun BatimentList() {
+fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
 // Récupérer le ViewModel dans le composable avec viewModel()
     val viewModel: BatimentViewModel = viewModel()
 // Observer les données des bâtiments via le ViewModel
