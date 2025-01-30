@@ -25,4 +25,30 @@ class AppartementViewModel : ViewModel() {
     //            Appartement(2, 30, 15.0, nbrePieces = 3, description = "Duplex"),
     //            Appartement(3, 45, 45.0, nbrePieces = 5, description = "Appartement face à la mer")
     //        )
+    // Liste mutable des appartements
+    private val _appartements = mutableStateOf<List<Appartement>>(emptyList())
+    val appartements: State<List<Appartement>> = _appartements
+    private val _isLoading = mutableStateOf(false)
+
+    val isLoading: State<Boolean> = _isLoading
+    private val _errorMessage = mutableStateOf<String?>(null)
+    val errorMessage: State<String?> = _errorMessage
+    init {
+// Simuler un chargement de données initiales
+        getAppartements()
+    }
+    private fun getAppartements() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.getAppartements()
+                _appartements.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+                println("pas de chargement")
+            }
+        }
+    }
 }

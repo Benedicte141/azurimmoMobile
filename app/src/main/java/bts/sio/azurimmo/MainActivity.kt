@@ -21,17 +21,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AzurimmoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
+                BatimentList()
+                AppartementList()
             }
         }
     }
 }
-
 
 
 @Composable
@@ -42,16 +43,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-    // Fonction pour prévisualiser l'interface
-    @Preview(showBackground = true)
-    @Composable
-    fun PreviewBatimentList() {
-        BatimentList()
+// Fonction pour prévisualiser l'interface
+@Preview(showBackground = true)
+@Composable
+fun PreviewBatimentList() {
+    BatimentList()
 }
 
 // Fonction pour prévisualiser l'interface
 @Preview(showBackground = true)
 @Composable
 fun PreviewAppartementList() {
-   AppartementList()
+    AppartementList()
 }
