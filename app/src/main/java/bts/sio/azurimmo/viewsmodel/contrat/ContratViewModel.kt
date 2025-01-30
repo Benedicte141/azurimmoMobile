@@ -9,7 +9,7 @@ import bts.sio.azurimmo.api.RetrofitInstance
 import kotlinx.coroutines.launch
 
 
-class ContratViewModel {
+class ContratViewModel : ViewModel(){
     // Liste mutable des Contrats
     private val _contrats = mutableStateOf<List<Contrat>>(emptyList())
     val contrats: State<List<Contrat>> = _contrats

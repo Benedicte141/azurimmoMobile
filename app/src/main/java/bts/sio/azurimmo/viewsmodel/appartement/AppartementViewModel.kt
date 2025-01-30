@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import bts.sio.azurimmo.api.RetrofitInstance
 import kotlinx.coroutines.launch
 
-// ViewModel pour gérer les données des appartements
+
 class AppartementViewModel : ViewModel() {
     // Liste mutable des appartements ===> "Données en dur"
     //private val _appartements = mutableStateOf(emptyList<Appartement>())
