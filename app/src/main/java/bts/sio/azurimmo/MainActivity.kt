@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import bts.sio.azurimmo.ui.theme.AzurimmoTheme
 import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentList
+import bts.sio.azurimmo.views.Contrat.ContratList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,8 @@ class MainActivity : ComponentActivity() {
 //                }
                 BatimentList()
                 AppartementList()
+                ContratList()
+
             }
         }
     }
