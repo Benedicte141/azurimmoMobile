@@ -17,7 +17,7 @@ import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 
 // Fonction Composable pour afficher la liste des bâtiments
 @Composable
-fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
+fun BatimentList(viewModel: BatimentViewModel = viewModel(), onBatimentClick: (Int) -> Unit) {
 
     val batiments = viewModel.batiments.value
     val isLoading = viewModel.isLoading.value
@@ -45,7 +45,10 @@ fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
             else -> {
                 LazyColumn {
                     items(batiments) { batiment ->
-                        BatimentCard(batiment = batiment) // Appel de la fonction BatimentCard
+                        BatimentCard(
+                            batiment = batiment,
+                        onClick = { onBatimentClick(batiment.id) }
+                        )
                     }
                 }
             }

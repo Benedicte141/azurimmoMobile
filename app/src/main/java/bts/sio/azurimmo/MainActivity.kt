@@ -31,10 +31,11 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
+                MainScreen()
 //                BatimentList()
 //               AppartementList()
 //                ContratList()
-//                InterventionList()
+                InterventionList()
  //               EntrepriseList()
 
             }
