@@ -1,4 +1,4 @@
-package bts.sio.azurimmo.views.Contrat
+package bts.sio.azurimmo.views.Locataire
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,17 +13,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
+import bts.sio.azurimmo.viewsmodel.Locataire.LocataireViewModel
 
-// Fonction Composable pour afficher la liste des contrats
+
+// Fonction Composable pour afficher la liste des locataires
 @Composable
-fun ContratList(viewModel: ContratViewModel = viewModel()) {
-
-    val contrats = viewModel.contrats.value
+fun LocataireList(viewModel: LocataireViewModel = viewModel()) {
+// Observer les données des locataires via le ViewModel
+    val locataires = viewModel.locataires.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
 
-    // Observer les données des contrats via le ViewModel
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             isLoading -> {
@@ -44,8 +44,8 @@ fun ContratList(viewModel: ContratViewModel = viewModel()) {
 
             else -> {
                 LazyColumn {
-                    items(contrats) { contrat ->
-                        ContratCard(contrat = contrat) // Appel de la fonction ContratCard
+                    items(locataires) { locataire ->
+                        LocataireCard(locataire = locataire) // Appel de la fonction LocataireCard
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package bts.sio.azurimmo.views.Contrat
+package bts.sio.azurimmo.views.Locataire
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,11 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import bts.sio.azurimmo.model.Contrat
+import bts.sio.azurimmo.model.Locataire
 
 
 @Composable
-fun ContratCard(contrat: Contrat) { // Notez l'annotation @Composable
+fun LocataireCard(locataire: Locataire) { // Notez l'annotation @Composable
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,11 +26,10 @@ fun ContratCard(contrat: Contrat) { // Notez l'annotation @Composable
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = contrat.dateEntree, style = MaterialTheme.typography.bodyLarge)
-            Text(text = contrat.dateSortie, style = MaterialTheme.typography.bodyMedium)
-            Text(text = contrat.montantLoyer.toString(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = contrat.montantCharges.toString(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = contrat.statut, style = MaterialTheme.typography.bodyMedium)
+            Text(text = locataire.nom, style = MaterialTheme.typography.bodyLarge)
+            Text(text = locataire.prenom, style = MaterialTheme.typography.bodyMedium)
+            Text(text = locataire.dateNaissance, style = MaterialTheme.typography.bodyMedium)
+            Text(text = locataire.lieuNaissance, style = MaterialTheme.typography.bodyMedium)
 
         }
     }

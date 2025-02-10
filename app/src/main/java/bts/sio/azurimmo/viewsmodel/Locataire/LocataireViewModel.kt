@@ -1,37 +1,33 @@
-package bts.sio.azurimmo.viewsmodel.batiment
+package bts.sio.azurimmo.viewsmodel.Locataire
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import bts.sio.azurimmo.model.Batiment
+import bts.sio.azurimmo.model.Locataire
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
 import bts.sio.azurimmo.api.RetrofitInstance
 import kotlinx.coroutines.launch
 
-// ViewModel pour gérer les données des bâtiments
-class BatimentViewModel : ViewModel() {
 
-    // Liste mutable des bâtiments
-    private val _batiments = mutableStateOf<List<Batiment>>(emptyList())
-    val batiments: State<List<Batiment>> = _batiments
-
+class LocataireViewModel : ViewModel(){
+    // Liste mutable des locataires
+    private val _locataires = mutableStateOf<List<Locataire>>(emptyList())
+    val locataires: State<List<Locataire>> = _locataires
     private val _isLoading = mutableStateOf(false)
 
     val isLoading: State<Boolean> = _isLoading
-
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
     init {
-        // Simuler un chargement de données initiales
-        getBatiments()
+// Simuler un chargement de données initiales
+        getLocataires()
     }
-
-    private fun getBatiments() {
+    private fun getLocataires() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val response = RetrofitInstance.api.getBatiments()
-                _batiments.value = response
+                val response = RetrofitInstance.api.getLocataires()
+                _locataires.value = response
             } catch (e: Exception) {
                 _errorMessage.value = "Erreur : ${e.message}"
             } finally {

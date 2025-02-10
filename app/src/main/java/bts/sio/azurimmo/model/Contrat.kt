@@ -1,6 +1,5 @@
 package bts.sio.azurimmo.model
 
-import java.time.LocalDate
 
 data class Contrat (
     val id: Int,
@@ -8,5 +7,8 @@ data class Contrat (
     val dateSortie: String,
     val montantLoyer: Double,
     val montantCharges: Double,
+    val statut: String,
+    val appartement: Appartement,
+    val locataire: Locataire
 
 )

@@ -53,4 +53,3 @@ fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
     }
 }
 
-

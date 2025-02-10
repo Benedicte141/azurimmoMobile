@@ -4,6 +4,7 @@ import bts.sio.azurimmo.model.Batiment
 import bts.sio.azurimmo.model.Contrat
 import bts.sio.azurimmo.model.Entreprise
 import bts.sio.azurimmo.model.Intervention
+import bts.sio.azurimmo.model.Locataire
 import retrofit2.http.GET
 
 interface ApiService {
@@ -21,4 +22,9 @@ interface ApiService {
 
     @GET("api/entreprises/")
     suspend fun getEntreprises(): List<Entreprise>
+
+    @GET("api/locataires/")
+    suspend fun getLocataires(): List<Locataire>
+
+
 }
