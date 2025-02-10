@@ -30,11 +30,12 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
+                MainScreen()
 //                BatimentList()
 //               AppartementList()
 //                ContratList()
-                InterventionList()
- //               EntrepriseList()
+//                InterventionList()
+//                EntrepriseList()
 
             }
         }
@@ -50,30 +51,30 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewBatimentList() {
-    BatimentList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewAppartementList() {
-    AppartementList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewInterventionList() {
-    InterventionList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewEntrepriseList() {
-    EntrepriseList()
-}
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewBatimentList() {
+//    BatimentList()
+//}
+//
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewAppartementList() {
+//    AppartementList()
+//}
+//
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewInterventionList() {
+//    InterventionList()
+//}
+//
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewEntrepriseList() {
+//    EntrepriseList()
+//}

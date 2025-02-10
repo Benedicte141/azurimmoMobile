@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -19,12 +20,15 @@ import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 
 // Fonction Composable pour afficher la liste des appartements
 @Composable
-fun AppartementList(viewModel: AppartementViewModel = viewModel()) {
+fun AppartementList(viewModel: AppartementViewModel = viewModel(), batimentId: Int) {
 
     val appartements = viewModel.appartements.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
 
+    LaunchedEffect(batimentId) {
+        viewModel.getAppartementsByBatimentId(batimentId)
+    }
     // Observer les données des appartements via le ViewModel
     Box(modifier = Modifier.fillMaxSize()) {
         when {
