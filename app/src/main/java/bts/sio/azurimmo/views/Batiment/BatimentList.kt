@@ -44,6 +44,18 @@ fun BatimentList(viewModel: BatimentViewModel = viewModel(), onBatimentClick: (I
 
             else -> {
                 LazyColumn {
+
+                    // Ajout du titre avant la liste des bâtiments
+                    item {
+                        Text(
+                            text = "Liste des bâtiments",
+                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
                     items(batiments) { batiment ->
                         BatimentCard(
                             batiment = batiment,
