@@ -2,6 +2,8 @@ package bts.sio.azurimmo.api
 import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.model.Batiment
 import bts.sio.azurimmo.model.Contrat
+import bts.sio.azurimmo.model.Entreprise
+import bts.sio.azurimmo.model.Intervention
 import retrofit2.http.GET
 
 interface ApiService {
@@ -13,4 +15,10 @@ interface ApiService {
 
     @GET("api/contrats/")
     suspend fun getContrats(): List<Contrat>
+
+    @GET("api/interventions/")
+    suspend fun getInterventions(): List<Intervention>
+
+    @GET("api/entreprises/")
+    suspend fun getEntreprises(): List<Entreprise>
 }

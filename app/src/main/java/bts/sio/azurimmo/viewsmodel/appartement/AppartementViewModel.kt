@@ -10,21 +10,7 @@ import kotlinx.coroutines.launch
 
 
 class AppartementViewModel : ViewModel() {
-    // Liste mutable des appartements ===> "Données en dur"
-    //private val _appartements = mutableStateOf(emptyList<Appartement>())
-    //val appartements: State<List<Appartement>> = _appartements
-    //init {
-    // Simuler un chargement de données initiales
-    //    getAppartements()
-    //}
-    // Fonction pour simuler le chargement de appartements
-    //private fun getAppartements() {
-    //    viewModelScope.launch {
-    //        _appartements.value = listOf(
-    //            Appartement(1, 123, 20.0, nbrePieces = 2, description = "Studio"),
-    //            Appartement(2, 30, 15.0, nbrePieces = 3, description = "Duplex"),
-    //            Appartement(3, 45, 45.0, nbrePieces = 5, description = "Appartement face à la mer")
-    //        )
+
     // Liste mutable des appartements
     private val _appartements = mutableStateOf<List<Appartement>>(emptyList())
     val appartements: State<List<Appartement>> = _appartements

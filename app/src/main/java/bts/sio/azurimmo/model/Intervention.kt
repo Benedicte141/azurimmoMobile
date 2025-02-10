@@ -6,8 +6,8 @@ data class Intervention(
     val id: Int,
     val description: String,
     val typeIntervention: String,
-    val	dateIntervention: LocalDate,
+    val	dateIntervention: String,
     val	appartement : Appartement,
-   // val entreprise: Entreprise
+    val entreprise: Entreprise
 
 )

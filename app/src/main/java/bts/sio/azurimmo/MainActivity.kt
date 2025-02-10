@@ -15,6 +15,8 @@ import bts.sio.azurimmo.ui.theme.AzurimmoTheme
 import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentList
 import bts.sio.azurimmo.views.Contrat.ContratList
+import bts.sio.azurimmo.views.Entreprise.EntrepriseList
+import bts.sio.azurimmo.views.Intervention.InterventionList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,9 @@ class MainActivity : ComponentActivity() {
                 }
 //                BatimentList()
 //               AppartementList()
-                ContratList()
+//                ContratList()
+                InterventionList()
+ //               EntrepriseList()
 
             }
         }
@@ -58,4 +62,18 @@ fun PreviewBatimentList() {
 @Composable
 fun PreviewAppartementList() {
     AppartementList()
+}
+
+// Fonction pour prévisualiser l'interface
+@Preview(showBackground = true)
+@Composable
+fun PreviewInterventionList() {
+    InterventionList()
+}
+
+// Fonction pour prévisualiser l'interface
+@Preview(showBackground = true)
+@Composable
+fun PreviewEntrepriseList() {
+    EntrepriseList()
 }
