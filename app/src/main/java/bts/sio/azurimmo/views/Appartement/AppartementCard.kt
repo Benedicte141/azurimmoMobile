@@ -27,7 +27,7 @@ import bts.sio.azurimmo.model.Appartement
             ) {
                 Text(text = appartement.description, style = MaterialTheme.typography.bodyLarge)
                 Text(text = appartement.surface.toString(), style = MaterialTheme.typography.bodyMedium)
-                Text(text = appartement.numero.toString(), style = MaterialTheme.typography.bodyMedium)
+                Text(text = appartement.numero, style = MaterialTheme.typography.bodyMedium)
                 Text(text = appartement.nbrePieces.toString(), style = MaterialTheme.typography.bodyMedium)
 
             }

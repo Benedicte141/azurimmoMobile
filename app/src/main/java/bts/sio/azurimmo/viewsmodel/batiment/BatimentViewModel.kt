@@ -15,12 +15,16 @@ class BatimentViewModel : ViewModel() {
     private val _batiments = mutableStateOf<List<Batiment>>(emptyList())
     val batiments: State<List<Batiment>> = _batiments
 
-    private val _isLoading = mutableStateOf(false)
+    private val _batiment = mutableStateOf<Batiment?>(null)
+    val batiment:State<Batiment?> = _batiment
+
+    val _isLoading = mutableStateOf(false)
 
     val isLoading: State<Boolean> = _isLoading
 
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
+
     init {
         // Simuler un chargement de données initiales
         getBatiments()
@@ -40,4 +44,25 @@ class BatimentViewModel : ViewModel() {
             }
         }
     }
-}
+
+    fun getBatiment(batimentId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.getBatiment(batimentId)
+
+                if (response != null) {
+                    _batiment.value = response
+                } else {
+                    _errorMessage.value = "Aucun Batiment trouvé pour l'id $batimentId"
+                }
+
+            }catch(e: Exception) {
+                    _errorMessage.value = "Erreur : ${e.message}"
+                } finally {
+                    _isLoading.value = false
+                    println("pas de chargement")
+                }
+            }
+        }
+    }

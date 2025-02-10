@@ -24,71 +24,63 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AzurimmoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-                MainScreen()
+            MainScreen()
 //                BatimentList()
 //               AppartementList()
 //                ContratList()
-                InterventionList()
- //               EntrepriseList()
+//                InterventionList()
+            //               EntrepriseList()
 
-            }
         }
     }
 }
 
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+//@Composable
+//fun Greeting(name: String, modifier: Modifier = Modifier) {
+//    Text(
+//        text = "Hello $name!",
+//        modifier = modifier
+//    )
+//}
+
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewBatimentList() {
+//    BatimentList()
+//}
+//
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewAppartementList() {
+//    AppartementList()
+//}
+//
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewContratList() {
+//    ContratList()
+//}
+//
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewLocataireList() {
+//    LocataireList()
+//}
+//// Fonction pour prévisualiser l'interface
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewInterventionList() {
+//    InterventionList()
+//}
 
 // Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewBatimentList() {
-    BatimentList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewAppartementList() {
-    AppartementList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewContratList() {
-    ContratList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewLocataireList() {
-    LocataireList()
-}
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewInterventionList() {
-    InterventionList()
-}
-
-// Fonction pour prévisualiser l'interface
-@Preview(showBackground = true)
-@Composable
-fun PreviewEntrepriseList() {
-    EntrepriseList()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewEntrepriseList() {
+//    EntrepriseList()
+//}
