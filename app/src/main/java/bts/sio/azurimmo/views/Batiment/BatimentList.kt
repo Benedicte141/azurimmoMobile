@@ -1,10 +1,13 @@
 package bts.sio.azurimmo.views.Batiment
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,7 +20,11 @@ import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 
 // Fonction Composable pour afficher la liste des bâtiments
 @Composable
-fun BatimentList(viewModel: BatimentViewModel = viewModel(), onBatimentClick: (Int) -> Unit) {
+fun BatimentList(
+    viewModel: BatimentViewModel = viewModel(),
+    onBatimentClick: (Int) -> Unit,
+    onAddBatimentClick: () -> Unit // Callback pour ajouter un bâtiment
+) {
 
     val batiments = viewModel.batiments.value
     val isLoading = viewModel.isLoading.value
@@ -43,24 +50,36 @@ fun BatimentList(viewModel: BatimentViewModel = viewModel(), onBatimentClick: (I
             }
 
             else -> {
-                LazyColumn {
-
-                    // Ajout du titre avant la liste des bâtiments
-                    item {
-                        Text(
-                            text = "Liste des bâtiments",
-                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold),
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 8.dp, horizontal = 16.dp),
-                            color = MaterialTheme.colorScheme.primary
-                        )
+                Column {
+                    Button(
+                        onClick = onAddBatimentClick,
+                        modifier = Modifier
+                            .widthIn(min = 150.dp, max = 300.dp)
+                            .align(Alignment.CenterHorizontally)
+                            .padding(16.dp)
+                    ) {
+                        Text("Ajouter un bâtiment")
                     }
-                    items(batiments) { batiment ->
-                        BatimentCard(
-                            batiment = batiment,
-                        onClick = { onBatimentClick(batiment.id) }
-                        )
+
+                    LazyColumn {
+
+                        // Ajout du titre avant la liste des bâtiments
+                        item {
+                            Text(
+                                text = "Liste des bâtiments",
+                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold),
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        items(batiments) { batiment ->
+                            BatimentCard(
+                                batiment = batiment,
+                                onClick = { onBatimentClick(batiment.id) }
+                            )
+                        }
                     }
                 }
             }
