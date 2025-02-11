@@ -18,7 +18,7 @@ fun AppHeader() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(145, 56, 49))  // Fond ocre
+            .background(Color(75, 0, 130))  // Fond ocre
             .padding(vertical = 16.dp)  // Espacement vertical pour un effet plus aéré
     ) {
         Text(
