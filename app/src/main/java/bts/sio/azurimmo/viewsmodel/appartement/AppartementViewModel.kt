@@ -50,6 +50,27 @@ class AppartementViewModel : ViewModel() {
                 _isLoading.value = false
             }
         }
-    }
 
+        fun addAppartement(appartement: Appartement) {
+            viewModelScope.launch {
+                _isLoading.value = true
+                try {
+
+                    // Envoi à l'API (ici, un POST)
+                    val response = RetrofitInstance.api.addAppartement(appartement)
+                    if (response.isSuccessful) {
+                        // Ajout réussi, on met à jour la liste des appartements
+                        getAppartements() // Recharge les apartements pour inclure le nouveau
+                    } else {
+                        _errorMessage.value = "Erreur lors de l'ajout du bâtiment : ${response.message()}"
+                    }
+                } catch (e: Exception) {
+                    _errorMessage.value = "Erreur : ${e.message}"
+                } finally {
+                    _isLoading.value = false
+                }
+
+            }
+        }
+    }
 }
