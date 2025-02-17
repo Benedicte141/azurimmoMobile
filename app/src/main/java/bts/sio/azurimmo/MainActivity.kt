@@ -25,11 +25,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MainScreen()
-//                BatimentList()
+//               BatimentList()
 //               AppartementList()
-//                ContratList()
-//                InterventionList()
-            //               EntrepriseList()
+//               ContratList()
+//               InterventionList()
+//               EntrepriseList()
 
         }
     }
