@@ -26,6 +26,7 @@ interface ApiService {
 
     @GET("api/appartements/")
     suspend fun getAppartements(): List<Appartement>
+
     @POST("api/appartements/")
     suspend fun addAppartement(@Body appartement: Appartement): Response<Appartement>
 
