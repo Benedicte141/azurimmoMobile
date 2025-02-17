@@ -30,7 +30,7 @@ class BatimentViewModel : ViewModel() {
         getBatiments()
     }
 
-    private fun getBatiments() {
+    fun getBatiments() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
