@@ -1,6 +1,7 @@
 package bts.sio.azurimmo.views.Appartement
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import bts.sio.azurimmo.model.Appartement
 
@@ -25,10 +27,52 @@ import bts.sio.azurimmo.model.Appartement
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text(text = appartement.description, style = MaterialTheme.typography.bodyLarge)
-                Text(text = appartement.surface.toString(), style = MaterialTheme.typography.bodyMedium)
-                Text(text = appartement.numero, style = MaterialTheme.typography.bodyMedium)
-                Text(text = appartement.nbrePieces.toString(), style = MaterialTheme.typography.bodyMedium)
+                Row {
+                    Text(
+                        text = "Numero : ",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Text(
+                        text =appartement.numero,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+
+                Row {
+                    Text(
+                        text = "Description : ",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Text(
+                        text =appartement.description,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+
+                Row {
+                    Text(
+                        text = "Surface : ",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Text(
+                        text = appartement.surface.toString(),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+                Row {
+                    Text(
+                        text = "Nombre de pièces : ",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Text(
+                        text = appartement.nbrePieces.toString(),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+//                Text(text = appartement.description, style = MaterialTheme.typography.bodyLarge)
+//                Text(text = appartement.surface.toString(), style = MaterialTheme.typography.bodyMedium)
+//                Text(text = appartement.numero, style = MaterialTheme.typography.bodyMedium)
+//                Text(text = appartement.nbrePieces.toString(), style = MaterialTheme.typography.bodyMedium)
 
             }
         }

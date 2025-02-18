@@ -16,6 +16,7 @@ class AppartementViewModel : ViewModel() {
     val appartements: State<List<Appartement>> = _appartements
     private val _isLoading = mutableStateOf(false)
 
+
     val isLoading: State<Boolean> = _isLoading
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage

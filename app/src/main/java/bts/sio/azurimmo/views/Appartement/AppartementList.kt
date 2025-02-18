@@ -49,6 +49,7 @@ fun AppartementList(
         viewModel.getAppartementsByBatimentId(batimentId)
         viewModelBat.getBatiment(batimentId)
     }
+
     // Observer les données des appartements via le ViewModel
     Box(modifier = Modifier.fillMaxSize()) {
         when {
