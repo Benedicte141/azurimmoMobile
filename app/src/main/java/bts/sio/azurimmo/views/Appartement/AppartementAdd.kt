@@ -25,12 +25,12 @@ import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 
 
 @Composable
-fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
+fun AppartementAdd(onAddAppartement: (Appartement) -> Unit, batimentId: Int){
     val viewModel: AppartementViewModel = viewModel()
+    var description by remember { mutableStateOf("") }
     var numero by remember { mutableStateOf("") }
     var surface by remember { mutableStateOf("") }
     var nbrePieces by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
 
 
     Column(
@@ -38,7 +38,6 @@ fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-
         TextField(
             value = description,
             onValueChange = { description = it },
@@ -46,7 +45,6 @@ fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-
         TextField(
             value = numero,
             onValueChange = { numero = it },
@@ -54,7 +52,6 @@ fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-
         TextField(
             value = surface,
             onValueChange = { surface = it },
@@ -62,7 +59,6 @@ fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
-
         TextField(
             value = nbrePieces,
             onValueChange = { nbrePieces = it },
@@ -73,15 +69,20 @@ fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
 
         Button(
             onClick = {
-                if (description.isNotBlank() && numero.isNotBlank() && surface.isNotBlank() && nbrePieces.isNotBlank()){
-                    val batiment = Batiment (id = batimentId, adresse = "", ville = "")
-                    val appartement = Appartement(id = 0, description = description, numero = numero, surface = surface.toDouble(), nbrePieces = nbrePieces.toInt(), batiment = batiment)
-                    viewModel.addAppartement(appartement)
-                    onAppartementAdd() // On notifie le parent que l’ajout est fait
-                }
-            },
+                val batiment = Batiment(id = batimentId, adresse = "pour création", ville = "pour création") // seul l’id nous interesse ici
+
+                val appartement = Appartement(
+                    id = 0,
+                    numero = numero,
+                    description = description,
+                    surface = surface.toDouble(),
+                    nbrePieces = nbrePieces.toInt(),
+                    batiment = batiment
+                )
+                viewModel.addAppartement(appartement)
+                onAddAppartement(appartement)
+     },
             modifier = Modifier.align(Alignment.End),
-            enabled = description.isNotBlank() && numero.isNotBlank() && surface.isNotBlank() && nbrePieces.isNotBlank()
         ) {
             Text("Ajouter l'appartement")
         }
