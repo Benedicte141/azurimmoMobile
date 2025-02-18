@@ -25,13 +25,13 @@ import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 
 
 @Composable
-fun AppartementAdd(onAppartementAdd: () -> Unit) {
+fun AppartementAdd(onAppartementAdd: () -> Unit, batimentId: Int) {
     val viewModel: AppartementViewModel = viewModel()
     var numero by remember { mutableStateOf("") }
     var surface by remember { mutableStateOf("") }
     var nbrePieces by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var batiment by remember { mutableStateOf("") }
+
 
     Column(
         modifier = Modifier
@@ -71,24 +71,17 @@ fun AppartementAdd(onAppartementAdd: () -> Unit) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextField(
-            value = batiment,
-            onValueChange = { batiment = it },
-            label = { Text("Bâtiment") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
         Button(
             onClick = {
-                if (description.isNotBlank() && numero.isNotBlank() && surface.isNotBlank() && nbrePieces.isNotBlank() && batiment.isNotBlank()) {
+                if (description.isNotBlank() && numero.isNotBlank() && surface.isNotBlank() && nbrePieces.isNotBlank()){
+                    val batiment = Batiment (id = batimentId, adresse = "", ville = "")
                     val appartement = Appartement(id = 0, description = description, numero = numero, surface = surface.toDouble(), nbrePieces = nbrePieces.toInt(), batiment = batiment)
                     viewModel.addAppartement(appartement)
                     onAppartementAdd() // On notifie le parent que l’ajout est fait
                 }
             },
             modifier = Modifier.align(Alignment.End),
-            enabled = description.isNotBlank() && numero.isNotBlank() && surface.isNotBlank() && nbrePieces.isNotBlank() && batiment.isNotBlank()
+            enabled = description.isNotBlank() && numero.isNotBlank() && surface.isNotBlank() && nbrePieces.isNotBlank()
         ) {
             Text("Ajouter l'appartement")
         }
