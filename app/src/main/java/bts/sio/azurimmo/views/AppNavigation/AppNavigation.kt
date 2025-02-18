@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.views.AppNavigation
 
+import android.util.Log
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,8 +40,8 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             val batimentId = backStackEntry.arguments?.getInt("batimentId")
             if (batimentId != null) {
                 AppartementList(batimentId = batimentId,
-                onAddBatimentClick = {
-                    navController.navigate("add_batiment")
+                onAddAppartementClick =  {
+                    navController.navigate("add_appartement/$batimentId")
                 })
             } else {
                 Text("Erreur : Identifiant de bâtiment manquant")
@@ -52,7 +53,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 navController.popBackStack() // La navigation est gérée ici
             })
         }
-        // Route pour ajouter un appartement
+//        // Route pour ajouter un appartement
         composable("add_appartement/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
         )

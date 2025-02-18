@@ -21,9 +21,9 @@ interface ApiService {
     @POST("api/batiments/")
     suspend fun addBatiment(@Body batiment: Batiment): Response<Batiment>
 
+
     @GET("/api/batiments/batiment/{id}")
     suspend fun getBatiment(@Path("id") batimentId: Int): Batiment
-
     @GET("api/appartements/")
     suspend fun getAppartements(): List<Appartement>
 

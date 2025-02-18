@@ -72,12 +72,12 @@ fun AppartementAdd(onAddAppartement: (Appartement) -> Unit, batimentId: Int){
                 val batiment = Batiment(id = batimentId, adresse = "pour création", ville = "pour création") // seul l’id nous interesse ici
 
                 val appartement = Appartement(
+                    batiment= batiment,
                     id = 0,
                     numero = numero,
                     description = description,
                     surface = surface.toDouble(),
-                    nbrePieces = nbrePieces.toInt(),
-                    batiment = batiment
+                    nbrePieces = nbrePieces.toInt()
                 )
                 viewModel.addAppartement(appartement)
                 onAddAppartement(appartement)

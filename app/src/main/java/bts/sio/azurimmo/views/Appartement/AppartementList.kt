@@ -36,7 +36,7 @@ import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 fun AppartementList(
     viewModel: AppartementViewModel = viewModel(),
     batimentId: Int,
-    onAddBatimentClick: () -> Unit // Callback pour ajouter un appartement
+    onAddAppartementClick: () -> Unit // Callback pour ajouter un appartement
 
 ) {
     val viewModelBat: BatimentViewModel = viewModel()
@@ -70,19 +70,10 @@ fun AppartementList(
 
             else -> {
 
-//                Column {
-//                    Button(
-//                        onClick = onAddBatimentClick,
-//                        modifier = Modifier
-//                            .widthIn(min = 150.dp, max = 300.dp)
-//                            .align(Alignment.CenterHorizontally)
-//                            .padding(16.dp)
-//                    ) {
-//                        Text("Ajouter un appartement")
-//                    }
                     FloatingActionButton(
                         onClick = {
-                            println("Bouton + cliqué")  // Vérification Logcat
+
+                            println("Navigation + Ajout appartement pour bâtiment ID: $batimentId")  // Vérification Logcat
                             onAddAppartementClick()
                         },
                         modifier = Modifier
@@ -163,9 +154,7 @@ fun AppartementList(
         }
     }
 
-fun onAddAppartementClick() {
-    TODO("Not yet implemented")
-}
+
 
 
 
