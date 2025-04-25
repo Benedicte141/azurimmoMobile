@@ -14,15 +14,19 @@ import bts.sio.azurimmo.views.AppHeader.AppHeader
 import bts.sio.azurimmo.views.AppNavigation.AppNavigation
 import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentList
+import bts.sio.azurimmo.views.navigation.BottomNavigationBar
 
 @Composable
 fun MainScreen() {
 
     val navController = rememberNavController()
     Scaffold(
-        topBar = { AppHeader() } // TopBar commune à tous les écrans
+        topBar = { AppHeader() }, // Barre en-tête
+        bottomBar = {
+            BottomNavigationBar(navController = navController) // Utilisation correcte de navController
+        }
     ) { innerPadding ->
-        AppNavigation(navController = navController, modifier = Modifier.padding(innerPadding))
+        AppNavigation(navController = navController, modifier = Modifier.padding(innerPadding)) // Contenu de la navigation
     }
 }
 
