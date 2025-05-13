@@ -38,6 +38,22 @@ class AppartementViewModel : ViewModel() {
             }
         }
     }
+
+    // Fonction pour récupérer tous les appartements
+
+    fun loadAllAppartements() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.getAppartements()
+                _appartements.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
     // Fonction pour récupérer les appartements via un Id de Batiment
     fun getAppartementsByBatimentId(batimentId: Int) {
         viewModelScope.launch {

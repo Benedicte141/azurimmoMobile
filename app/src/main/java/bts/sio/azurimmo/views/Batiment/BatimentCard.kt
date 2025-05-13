@@ -45,7 +45,7 @@ fun BatimentCard(batiment: Batiment, onClick: (Int) -> Unit) { // Notez l'annota
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                     )
                     Text(
-                        text = batiment.adresse,
+                        text = batiment.ville,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
