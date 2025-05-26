@@ -19,7 +19,8 @@ class ContratViewModel : ViewModel(){
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
     init {
-// Simuler un chargement de données initiales
+
+   // Simuler un chargement de données initiales
         getContrats()
     }
     private fun getContrats() {
@@ -33,6 +34,22 @@ class ContratViewModel : ViewModel(){
             } finally {
                 _isLoading.value = false
                 println("pas de chargement")
+            }
+        }
+    }
+
+    // Fonction pour récupérer tous les contrats
+
+    fun loadAllContrats() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.getContrats()
+                _contrats.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
             }
         }
     }

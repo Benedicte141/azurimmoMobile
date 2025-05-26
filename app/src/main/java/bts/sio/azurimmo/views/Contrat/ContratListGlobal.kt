@@ -1,4 +1,4 @@
-package bts.sio.azurimmo.views.Appartement
+package bts.sio.azurimmo.views.Contrat
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,17 +12,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
-
+import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
 
 @Composable
-fun AppartementListGlobal(viewModel: AppartementViewModel = viewModel()) {
-    val appartements = viewModel.appartements.value
+fun ContratListGlobal(viewModel: ContratViewModel = viewModel()) {
+    val contrats = viewModel.contrats.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
 
     LaunchedEffect(true) {
-        viewModel.loadAllAppartements() // 👈 nouvelle méthode dédiée
+        viewModel.loadAllContrats() // nouvelle méthode dédiée
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -34,8 +33,8 @@ fun AppartementListGlobal(viewModel: AppartementViewModel = viewModel()) {
                 color = MaterialTheme.colorScheme.error
             )
             else -> LazyColumn {
-                items(appartements) { appartement ->
-                    AppartementCard(appartement = appartement)
+                items(contrats) { contrat ->
+                    ContratCard(contrat = contrat)
                 }
             }
         }

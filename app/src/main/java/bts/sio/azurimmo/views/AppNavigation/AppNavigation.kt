@@ -11,9 +11,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import bts.sio.azurimmo.views.Appartement.AppartementAdd
 import bts.sio.azurimmo.views.Appartement.AppartementList
-import bts.sio.azurimmo.views.Appartement.AppartementListGlobal
 import bts.sio.azurimmo.views.Batiment.BatimentAdd
 import bts.sio.azurimmo.views.Batiment.BatimentList
+import bts.sio.azurimmo.views.Contrat.ContratList
+import bts.sio.azurimmo.views.Contrat.ContratListGlobal
 
 
 @Composable
@@ -34,9 +35,6 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             )
         }
 
-        composable("appartement_list_global") {
-            AppartementListGlobal()
-        }
 
         composable(
             route = "batiment_appartements_list/{batimentId}",
@@ -44,8 +42,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         ) { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getInt("batimentId")
             if (batimentId != null) {
-                AppartementList(batimentId = batimentId,
-                onAddAppartementClick =  {
+                AppartementList(
+                    batimentId = batimentId,
+                    onAddAppartementClick =  {
                     navController.navigate("add_appartement/$batimentId")
                 })
             } else {
@@ -53,13 +52,17 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
-
-
         composable("add_batiment") {
             BatimentAdd(onBatimentAdd = {
                 navController.popBackStack() // La navigation est gérée ici
             })
         }
+
+
+        composable("appartement_list") {
+            AppartementList()
+        }
+
 //        // Route pour ajouter un appartement
         composable("add_appartement/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
@@ -75,5 +78,13 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 Text("Erreur : Identifiant de bâtiment manquant")
             }
         }
+
+        composable("contrat_list_global") {
+            ContratListGlobal()
+        }
+
+
+
+
     }
 }
