@@ -8,8 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -58,20 +62,8 @@ fun BatimentList(
             }
 
             else -> {
-                Column {
-                    Button(
-                        onClick = onAddBatimentClick,
-                        modifier = Modifier
-                            .widthIn(min = 150.dp, max = 300.dp)
-                            .align(Alignment.CenterHorizontally)
-                            .padding(16.dp)
-                    ) {
-                        Text("Ajouter un bâtiment")
-                    }
-
-                    LazyColumn {
-
-                        // Ajout du titre avant la liste des bâtiments
+                Column(modifier = Modifier.fillMaxSize()) {
+                    LazyColumn(modifier = Modifier.weight(1f)) {
                         item {
                             Text(
                                 text = "Liste des bâtiments",
@@ -79,7 +71,7 @@ fun BatimentList(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(vertical = 8.dp, horizontal = 16.dp),
-                                textAlign = TextAlign.Center, // Centre le texte
+                                textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.primary
                             )
                         }
@@ -91,8 +83,18 @@ fun BatimentList(
                         }
                     }
                 }
+
+                FloatingActionButton(
+                    onClick = onAddBatimentClick,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(16.dp)
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = "Ajouter un bâtiment")
+                }
             }
         }
     }
 }
+
 

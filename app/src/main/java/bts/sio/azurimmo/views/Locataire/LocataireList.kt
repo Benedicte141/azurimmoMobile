@@ -13,7 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import bts.sio.azurimmo.views.Contrat.ContratCard
 import bts.sio.azurimmo.viewsmodel.Locataire.LocataireViewModel
+import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
 
 
 // Fonction Composable pour afficher la liste des locataires
@@ -32,7 +34,8 @@ fun LocataireList(viewModel: LocataireViewModel = viewModel()) {
                 )
             }
 
-            errorMessage != null -> {
+
+                    errorMessage != null -> {
                 Text(
                     text = errorMessage ?: "Erreur inconnue",
                     modifier = Modifier
@@ -41,6 +44,7 @@ fun LocataireList(viewModel: LocataireViewModel = viewModel()) {
                     color = MaterialTheme.colorScheme.error
                 )
             }
+
 
             else -> {
                 LazyColumn {
@@ -52,3 +56,4 @@ fun LocataireList(viewModel: LocataireViewModel = viewModel()) {
         }
     }
 }
+

@@ -14,6 +14,7 @@ import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentAdd
 import bts.sio.azurimmo.views.Batiment.BatimentList
 import bts.sio.azurimmo.views.Contrat.ContratList
+import bts.sio.azurimmo.views.Locataire.LocataireList
 
 
 
@@ -83,7 +84,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             ContratList()
         }
 
-
+        composable("locataire_list") {
+            LocataireList()
+        }
 
 
     }
