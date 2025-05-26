@@ -14,7 +14,7 @@ import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentAdd
 import bts.sio.azurimmo.views.Batiment.BatimentList
 import bts.sio.azurimmo.views.Contrat.ContratList
-import bts.sio.azurimmo.views.Contrat.ContratListGlobal
+
 
 
 @Composable
@@ -63,7 +63,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             AppartementList()
         }
 
-//        // Route pour ajouter un appartement
+        // Route pour ajouter un appartement
         composable("add_appartement/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
         )
@@ -79,8 +79,8 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
-        composable("contrat_list_global") {
-            ContratListGlobal()
+        composable("contrat_list") {
+            ContratList()
         }
 
 
