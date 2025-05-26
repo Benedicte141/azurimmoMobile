@@ -27,7 +27,9 @@ fun BottomNavigationBar(navController: NavHostController) {
             BottomNavItem.Batiment,
             BottomNavItem.Appartement,
             BottomNavItem.Contrat,
-            BottomNavItem.AddBatiment
+            BottomNavItem.Locataire,
+          //  BottomNavItem.AddBatiment
+
         ).forEach { item ->
             NavigationBarItem(
                 icon = {
