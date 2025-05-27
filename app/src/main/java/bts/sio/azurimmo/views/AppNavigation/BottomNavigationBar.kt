@@ -39,10 +39,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                 selected = false, // Ajoute une logique de sélection si nécessaire
                 onClick = {
                     navController.navigate(item.route) {
-                        // Évite d'empiler plusieurs fois la même destination
-                        popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
-                        }
+                        popUpTo(0) { inclusive = false } // <- efface toute la pile si besoin
                         launchSingleTop = true
                         restoreState = true
                     }

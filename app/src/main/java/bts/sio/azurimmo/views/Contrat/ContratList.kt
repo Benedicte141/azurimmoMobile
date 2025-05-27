@@ -42,6 +42,8 @@ fun ContratList(viewModel: ContratViewModel = viewModel()) {
                 )
             }
 
+
+
             else -> {
                 LazyColumn {
                     items(contrats) { contrat ->
