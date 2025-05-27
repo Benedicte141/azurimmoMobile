@@ -2,6 +2,7 @@ package bts.sio.azurimmo.views.Contrat
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
@@ -43,12 +46,27 @@ fun ContratList(viewModel: ContratViewModel = viewModel()) {
             }
 
 
-
             else -> {
                 LazyColumn {
+                    // Bloc liste des contrats
+                    if (contrats.isNotEmpty()) {
+                        /* BLOC AVEC LISTE DES CONTRATS *********************/
+                        // Ajouter un titre pour la liste des contrats
+                        item {
+                            Text(
+                                text = "Liste des contrats",
+                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                     items(contrats) { contrat ->
                         ContratCard(contrat = contrat) // Appel de la fonction ContratCard
-                    }
+                   }
                 }
             }
         }
