@@ -78,6 +78,7 @@ fun AppartementList(
             else -> {
 
                 onAddAppartementClick?.let { callback ->
+
                     FloatingActionButton(
                         onClick = {
                             println("Navigation + Ajout appartement pour bâtiment ID: $batimentId")
@@ -86,7 +87,7 @@ fun AppartementList(
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
                             .padding(16.dp)
-                            .background(MaterialTheme.colorScheme.secondary)
+
                     ) {
                         Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
                     }
