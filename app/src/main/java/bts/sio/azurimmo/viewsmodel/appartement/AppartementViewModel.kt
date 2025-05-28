@@ -56,6 +56,7 @@ class AppartementViewModel : ViewModel() {
         }
     }
     // Fonction pour récupérer les appartements via un Id de Batiment
+
     fun getAppartementsByBatimentId(batimentId: Int) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -68,9 +69,8 @@ class AppartementViewModel : ViewModel() {
                 _isLoading.value = false
             }
         }
-
-
     }
+
     fun addAppartement(appartement: Appartement) {
         viewModelScope.launch {
             _isLoading.value = true
@@ -91,7 +91,24 @@ class AppartementViewModel : ViewModel() {
             } finally {
                 _isLoading.value = false
             }
+        }
+    }
 
+    fun deleteAppartement(appartementId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.deleteAppartement(appartementId)
+                if (response.isSuccessful) {
+                    getAppartements() // Recharge la liste après suppression
+                } else {
+                    _errorMessage.value = "Erreur lors de la suppression : ${response.message()}"
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }

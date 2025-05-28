@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,8 +17,11 @@ import androidx.compose.ui.unit.dp
 import bts.sio.azurimmo.model.Appartement
 
 @Composable
-    fun AppartementCard(appartement: Appartement) { // Notez l'annotation @Composable
+    fun AppartementCard(appartement: Appartement,
+                        modeSuppressionActive: Boolean,
+                        onDeleteClick: (() -> Unit)? = null) { // Notez l'annotation @Composable
         Card(
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -26,6 +30,8 @@ import bts.sio.azurimmo.model.Appartement
         ) {
             Column(
                 modifier = Modifier.padding(16.dp)
+
+
             ) {
                 Row {
                     Text(
@@ -75,6 +81,6 @@ import bts.sio.azurimmo.model.Appartement
 //                Text(text = appartement.nbrePieces.toString(), style = MaterialTheme.typography.bodyMedium)
 
             }
+
         }
     }
-

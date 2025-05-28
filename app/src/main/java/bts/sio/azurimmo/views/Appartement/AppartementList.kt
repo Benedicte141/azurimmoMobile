@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
@@ -22,12 +23,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 
@@ -45,6 +51,8 @@ fun AppartementList(
     val batiment = viewModelBat.batiment.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
+    var selectedAppartementForDelete by remember { mutableStateOf<Appartement?>(null) }
+
 
     LaunchedEffect(batimentId) {
         Log.d("APPARTEMENT_LIST", "Chargement avec batimentId = $batimentId")
@@ -92,6 +100,19 @@ fun AppartementList(
                         Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
                     }
                 }
+
+                FloatingActionButton(
+                    onClick = {
+                        // Tu peux activer un mode "sélection suppression"
+                        println("Mode suppression activé")
+                    },
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(bottom = 80.dp, end = 16.dp)
+                ) {
+                    Icon(Icons.Default.Delete, contentDescription = "Supprimer un appartement")
+                }
+
 
                 LazyColumn {
                     if (batimentId != null && batiment != null) {
