@@ -82,6 +82,14 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
+        composable("appartement_list") {
+            AppartementList(
+                onAddAppartementClick = {
+                    navController.navigate("appartementAdd")
+                }
+            )
+        }
+
         composable("contrat_list") {
             ContratList(navController = navController)
         }

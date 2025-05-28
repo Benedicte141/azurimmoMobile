@@ -155,10 +155,6 @@ fun AppartementList(
                     }
                 }
             }
+
+
         }
-
-
-
-
-
-

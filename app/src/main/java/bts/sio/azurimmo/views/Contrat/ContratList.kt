@@ -38,7 +38,6 @@ fun ContratList(navController: NavController, viewModel: ContratViewModel = view
         viewModel.getContrats()
     }
 
-
     androidx.compose.material3.Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
