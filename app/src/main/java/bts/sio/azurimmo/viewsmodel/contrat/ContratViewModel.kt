@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.viewsmodel.contrat
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import bts.sio.azurimmo.model.Contrat
@@ -23,7 +24,7 @@ class ContratViewModel : ViewModel(){
    // Simuler un chargement de données initiales
         getContrats()
     }
-    private fun getContrats() {
+    fun getContrats() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
@@ -58,16 +59,20 @@ class ContratViewModel : ViewModel(){
         viewModelScope.launch {
             _isLoading.value = true
             try {
+                Log.d("CONTRAT_API", "Envoi du contrat : $contrat")
 
                 // Envoi à l'API (ici, un POST)
                 val response = RetrofitInstance.api.addContrat(contrat)
                 if (response.isSuccessful) {
+                    Log.d("CONTRAT_API", "Ajout réussi ✅")
                     // Ajout réussi, on met à jour la liste des contrats
                     getContrats() // Recharge les apartements pour inclure le nouveau
                 } else {
+                    Log.e("CONTRAT_API", "Erreur API ❌ : ${response.code()} - ${response.message()}")
                     _errorMessage.value = "Erreur lors de l'ajout du contrat : ${response.message()}"
                 }
             } catch (e: Exception) {
+                Log.e("CONTRAT_API", "Exception réseau 🚨 : ${e.message}")
                 _errorMessage.value = "Erreur : ${e.message}"
             } finally {
                 _isLoading.value = false

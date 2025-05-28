@@ -37,6 +37,7 @@ interface ApiService {
     suspend fun addContrat(@Body contrat: Contrat): Response<Contrat>
 
 
+
     @GET("api/interventions/")
     suspend fun getInterventions(): List<Intervention>
 

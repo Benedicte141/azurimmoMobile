@@ -1,6 +1,7 @@
 package bts.sio.azurimmo.views.Contrat
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -87,6 +88,39 @@ fun ContratAdd(onContratAdd: () -> Unit) {
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
+
+        Text("Sélectionnez un locataire :")
+        Box {
+            TextField(
+                value = selectedLocataire?.nom ?: "Choisir un locataire",
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = {
+                    IconButton(onClick = { locataireDropdownExpanded = true }) {
+                        Icon(Icons.Default.ArrowDropDown, contentDescription = "expand")
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            DropdownMenu(
+                expanded = locataireDropdownExpanded,
+                onDismissRequest = { locataireDropdownExpanded = false }
+            ) {
+                locataires.forEach { locataire ->
+                    DropdownMenuItem(
+                        text = { Text("${locataire.nom} ${locataire.prenom}") },
+                        onClick = {
+                            selectedLocataire = locataire
+                            locataireDropdownExpanded = false
+                        }
+                    )
+                }
+            }
+        }
+
+
+        Spacer(modifier = Modifier.height(16.dp))
         TextField(
             value = dateEntree,
             onValueChange = { dateEntree = it },
@@ -121,63 +155,34 @@ fun ContratAdd(onContratAdd: () -> Unit) {
             label = { Text("Statut") },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Sélectionnez un locataire :")
-        Box {
-            TextField(
-                value = selectedLocataire?.nom ?: "Choisir un locataire",
-                onValueChange = {},
-                readOnly = true,
-                trailingIcon = {
-                    IconButton(onClick = { locataireDropdownExpanded = true }) {
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = "expand")
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            DropdownMenu(
-                expanded = locataireDropdownExpanded,
-                onDismissRequest = { locataireDropdownExpanded = false }
-            ) {
-                locataires.forEach { locataire ->
-                    DropdownMenuItem(
-                        text = { Text("${locataire.nom} ${locataire.prenom}") },
-                        onClick = {
-                            selectedLocataire = locataire
-                            locataireDropdownExpanded = false
-                        }
-                    )
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
 
 
-        Button(
-            onClick = {
-               if (selectedAppartement != null && selectedLocataire != null) {
-               val contrat = Contrat(
-                   id = 0,
-                   appartement = selectedAppartement!!,
-                   locataire = selectedLocataire!!,
-                   dateEntree =  dateEntree,
-                   dateSortie = dateSortie,
-                   montantLoyer = montantLoyer.toDouble(),
-                   montantCharges = montantCharges.toDouble(),
-                   statut = statut
-               )
+    Button(
+        onClick = {
+            if (selectedAppartement != null && selectedLocataire != null) {
+                val contrat = Contrat(
+                    id = 0,
+                    appartement = selectedAppartement!!,
+                    locataire = selectedLocataire!!,
+                    dateEntree =  dateEntree,
+                    dateSortie = dateSortie,
+                    montantLoyer = montantLoyer.toDouble(),
+                    montantCharges = montantCharges.toDouble(),
+                    statut = statut
+                )
+                Log.d("CONTRAT_ADD", "Contrat à envoyer : $contrat")
                 viewModel.addContrat(contrat)
                 onContratAdd()
-               } else {
-                   // Action si aucun appartement sélectionné (ex. message d’erreur)
-                   println("Veuillez sélectionner un appartement et un locataire.")
-               }
-            },
-            modifier = Modifier.align(Alignment.End)
-        ) {
-            Text("Ajouter le contrat")
+            } else {
+                Log.d("CONTRAT_ADD", "App ou locataire non sélectionné")
+                // Action si aucun appartement sélectionné (ex. message d’erreur)
+                println("Veuillez sélectionner un appartement et un locataire.")
+            }
+        },
+        modifier = Modifier.align(Alignment.End)
+
+    ) { Spacer(modifier = Modifier.height(16.dp))
+        Text("Ajouter le contrat")
         }
     }
 }

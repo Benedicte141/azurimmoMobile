@@ -21,16 +21,22 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 
 // Fonction Composable pour afficher la liste des contrats
 @Composable
 fun ContratList(navController: NavController, viewModel: ContratViewModel = viewModel()) {
 
-    val contrats = viewModel.contrats.value
+    val contrats by viewModel.contrats
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
 
+    // Recharge automatique quand l'écran devient actif
+    LaunchedEffect(Unit) {
+        viewModel.getContrats()
+    }
 
 
     androidx.compose.material3.Scaffold(
