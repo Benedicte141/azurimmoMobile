@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,11 +31,18 @@ import bts.sio.azurimmo.model.Appartement
             elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Description : ${appartement.description}")
+                Text("Numéro : ${appartement.numero}")
 
+                if (modeSuppressionActive && onDeleteClick != null) {
+                    IconButton(onClick = onDeleteClick) {
+                        Icon(Icons.Default.Delete, contentDescription = "Supprimer")
+                    }
+                }
+            }
+        }
 
-            ) {
                 Row {
                     Text(
                         text = "Numero : ",
@@ -82,5 +92,3 @@ import bts.sio.azurimmo.model.Appartement
 
             }
 
-        }
-    }

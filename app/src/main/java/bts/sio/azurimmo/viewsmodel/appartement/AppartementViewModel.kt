@@ -94,13 +94,15 @@ class AppartementViewModel : ViewModel() {
         }
     }
 
-    fun deleteAppartement(appartementId: Int) {
+
+    fun deleteAppartementById(id: Int) {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                val response = RetrofitInstance.api.deleteAppartement(appartementId)
+                val response = RetrofitInstance.api.deleteAppartement(id)
                 if (response.isSuccessful) {
-                    getAppartements() // Recharge la liste après suppression
+                    // Recharger la liste après suppression
+                    getAppartements()
                 } else {
                     _errorMessage.value = "Erreur lors de la suppression : ${response.message()}"
                 }

@@ -7,6 +7,7 @@ import bts.sio.azurimmo.model.Intervention
 import bts.sio.azurimmo.model.Locataire
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -29,6 +30,8 @@ interface ApiService {
 
     @POST("api/appartements/")
     suspend fun addAppartement(@Body appartement: Appartement): Response<Appartement>
+    @DELETE("appartements/{id}")
+    suspend fun deleteAppartement(@Path("id") id: Int): retrofit2.Response<Unit>
 
 
     @GET("api/contrats/")
