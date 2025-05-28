@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,9 +14,10 @@ import bts.sio.azurimmo.views.Appartement.AppartementAdd
 import bts.sio.azurimmo.views.Appartement.AppartementList
 import bts.sio.azurimmo.views.Batiment.BatimentAdd
 import bts.sio.azurimmo.views.Batiment.BatimentList
+import bts.sio.azurimmo.views.Contrat.ContratAdd
 import bts.sio.azurimmo.views.Contrat.ContratList
 import bts.sio.azurimmo.views.Locataire.LocataireList
-
+import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 
 
 @Composable
@@ -81,8 +83,13 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         composable("contrat_list") {
-            ContratList()
+            ContratList(navController = navController)
         }
+
+        composable("contratAdd") {
+            ContratAdd(onContratAdd = { navController.popBackStack() })
+        }
+
 
         composable("locataire_list") {
             LocataireList()

@@ -17,56 +17,69 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.navigation.NavController
 
 // Fonction Composable pour afficher la liste des contrats
 @Composable
-fun ContratList(viewModel: ContratViewModel = viewModel()) {
+fun ContratList(navController: NavController, viewModel: ContratViewModel = viewModel()) {
 
     val contrats = viewModel.contrats.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
 
-    // Observer les données des contrats via le ViewModel
-    Box(modifier = Modifier.fillMaxSize()) {
-        when {
-            isLoading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
+
+
+    androidx.compose.material3.Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                // Navigation vers l'écran d'ajout
+                navController.navigate("contratAdd")
+            }) {
+                Icon(Icons.Default.Add, contentDescription = "Ajouter un contrat")
             }
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)) {
+            when {
+                isLoading -> {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
 
-            errorMessage != null -> {
-                Text(
-                    text = errorMessage ?: "Erreur inconnue",
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(16.dp),
-                    color = MaterialTheme.colorScheme.error
-                )
-            }
+                errorMessage != null -> {
+                    Text(
+                        text = errorMessage,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(16.dp),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
 
-
-            else -> {
-                LazyColumn {
-                    // Bloc liste des contrats
-                    if (contrats.isNotEmpty()) {
-                        /* BLOC AVEC LISTE DES CONTRATS *********************/
-                        // Ajouter un titre pour la liste des contrats
-                        item {
-                            Text(
-                                text = "Liste des contrats",
-                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp),
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.primary
-                            )
+                else -> {
+                    LazyColumn {
+                        if (contrats.isNotEmpty()) {
+                            item {
+                                Text(
+                                    text = "Liste des contrats",
+                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp),
+                                    textAlign = TextAlign.Center,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+                        items(contrats) { contrat ->
+                            ContratCard(contrat = contrat)
                         }
                     }
-                    items(contrats) { contrat ->
-                        ContratCard(contrat = contrat) // Appel de la fonction ContratCard
-                   }
                 }
             }
         }
