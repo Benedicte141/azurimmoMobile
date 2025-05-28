@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.viewsmodel.appartement
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import bts.sio.azurimmo.model.Appartement
@@ -74,13 +75,15 @@ class AppartementViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-
+                Log.d("APPARTEMENT_API", "POST appartement : $appartement")
                 // Envoi à l'API (ici, un POST)
                 val response = RetrofitInstance.api.addAppartement(appartement)
                 if (response.isSuccessful) {
                     // Ajout réussi, on met à jour la liste des appartements
+                    Log.d("APPARTEMENT_API", "Ajout réussi ✅")
                     getAppartements() // Recharge les apartements pour inclure le nouveau
                 } else {
+                    Log.e("APPARTEMENT_API", "Erreur API ❌ : ${response.code()} - ${response.message()}")
                     _errorMessage.value = "Erreur lors de l'ajout du bâtiment : ${response.message()}"
                 }
             } catch (e: Exception) {

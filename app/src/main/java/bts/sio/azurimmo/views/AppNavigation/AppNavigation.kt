@@ -63,10 +63,28 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
 
 
         composable("appartement_list") {
-            AppartementList()
+            AppartementList(
+                onAddAppartementClick = {
+                    navController.navigate("appartementAdd")
+                }
+            )
         }
 
+
         // Route pour ajouter un appartement
+
+        composable("appartementAdd") {
+            val appartementViewModel: AppartementViewModel = viewModel()
+
+            AppartementAdd(
+                onAddAppartement = {
+                    appartementViewModel.loadAllAppartements() // 🔁 Rafraîchir
+                    navController.popBackStack()
+                },
+                batimentId = null
+            )
+        }
+
         composable("add_appartement/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
         )
@@ -82,13 +100,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
-        composable("appartement_list") {
-            AppartementList(
-                onAddAppartementClick = {
-                    navController.navigate("appartementAdd")
-                }
-            )
-        }
+
 
         composable("contrat_list") {
             ContratList(navController = navController)
