@@ -16,6 +16,7 @@ import bts.sio.azurimmo.views.Batiment.BatimentAdd
 import bts.sio.azurimmo.views.Batiment.BatimentList
 import bts.sio.azurimmo.views.Contrat.ContratAdd
 import bts.sio.azurimmo.views.Contrat.ContratList
+import bts.sio.azurimmo.views.Locataire.LocataireAdd
 import bts.sio.azurimmo.views.Locataire.LocataireList
 import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 
@@ -112,7 +113,11 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
 
 
         composable("locataire_list") {
-            LocataireList()
+            LocataireList(navController)
+        }
+
+        composable("locataireAdd") {
+            LocataireAdd(onLocataireAdd = { navController.popBackStack() })
         }
 
 

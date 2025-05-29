@@ -1,8 +1,5 @@
 package bts.sio.azurimmo.views.Locataire
 
-package bts.sio.azurimmo.views.Contrat
-
-
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,29 +26,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.model.Contrat
 import bts.sio.azurimmo.model.Locataire
 import bts.sio.azurimmo.viewsmodel.Locataire.LocataireViewModel
-import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
 
 @Composable
-fun ContratAdd(onContratAdd: () -> Unit) {
-    val viewModel: ContratViewModel = viewModel()
-    val appartementViewModel: AppartementViewModel = viewModel()
-    val appartements by appartementViewModel.appartements
-    val locataireViewModel: LocataireViewModel = viewModel()
-    val locataires by locataireViewModel.locataires
-    var selectedLocataire by remember { mutableStateOf<Locataire?>(null) }
-    var locataireDropdownExpanded by remember { mutableStateOf(false) }
-    var expanded by remember { mutableStateOf(false) }
-    var selectedAppartement by remember { mutableStateOf<Appartement?>(null) }
-    var dateEntree by remember { mutableStateOf("") }
-    var dateSortie by remember { mutableStateOf("") }
-    var montantLoyer by remember { mutableStateOf("") }
-    var montantCharges by remember { mutableStateOf("") }
-    var statut by remember { mutableStateOf("") }
+fun LocataireAdd(onLocataireAdd: () -> Unit) {
+    val viewModel: LocataireViewModel = viewModel()
+
+    var nom by remember { mutableStateOf("") }
+    var prenom by remember { mutableStateOf("") }
+    var dateNaissance by remember { mutableStateOf("") }
+    var lieuNaissance by remember { mutableStateOf("") }
 
 
 
@@ -60,131 +47,55 @@ fun ContratAdd(onContratAdd: () -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text("Sélectionnez un appartement :")
-        Box {
-            TextField(
-                value = selectedAppartement?.description ?: "Choisir un appartement",
-                onValueChange = {},
-                readOnly = true,
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text("Appartement") },
-                trailingIcon = {
-                    IconButton(onClick = { expanded = true }) {
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = "expand")
-                    }
-                }
-            )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                appartements.forEach { appartement ->
-                    DropdownMenuItem(
-                        text = { Text(appartement.description) },
-                        onClick = {
-                            selectedAppartement = appartement
-                            expanded = false
-                        }
-                    )
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text("Sélectionnez un locataire :")
-        Box {
-            TextField(
-                value = selectedLocataire?.nom ?: "Choisir un locataire",
-                onValueChange = {},
-                readOnly = true,
-                trailingIcon = {
-                    IconButton(onClick = { locataireDropdownExpanded = true }) {
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = "expand")
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            DropdownMenu(
-                expanded = locataireDropdownExpanded,
-                onDismissRequest = { locataireDropdownExpanded = false }
-            ) {
-                locataires.forEach { locataire ->
-                    DropdownMenuItem(
-                        text = { Text("${locataire.nom} ${locataire.prenom}") },
-                        onClick = {
-                            selectedLocataire = locataire
-                            locataireDropdownExpanded = false
-                        }
-                    )
-                }
-            }
-        }
-
-
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
-            value = dateEntree,
-            onValueChange = { dateEntree = it },
-            label = { Text("Date d'entrée ") },
+            value = nom,
+            onValueChange = { nom = it },
+            label = { Text("nom ") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
-            value = dateSortie,
-            onValueChange = { dateSortie = it },
-            label = { Text("Date de sortie") },
+            value = prenom,
+            onValueChange = { prenom = it },
+            label = { Text("Prénom") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
-            value = montantLoyer,
-            onValueChange = { montantLoyer = it },
-            label = { Text("Montant du loyer") },
+            value = dateNaissance,
+            onValueChange = { dateNaissance = it },
+            label = { Text("Date de naissance") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
-            value = montantCharges,
-            onValueChange = { montantCharges = it },
-            label = { Text("Montant des charges") },
+            value = lieuNaissance,
+            onValueChange = { lieuNaissance = it },
+            label = { Text("Lieu de naissance") },
             modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        TextField(
-            value = statut,
-            onValueChange = { statut = it },
-            label = { Text("Statut") },
-            modifier = Modifier.fillMaxWidth()
-        )
+       )
 
 
         Button(
             onClick = {
-                if (selectedAppartement != null && selectedLocataire != null) {
-                    val contrat = Contrat(
+
+                    val locataire = Locataire(
                         id = 0,
-                        appartement = selectedAppartement!!,
-                        locataire = selectedLocataire!!,
-                        dateEntree =  dateEntree,
-                        dateSortie = dateSortie,
-                        montantLoyer = montantLoyer.toDouble(),
-                        montantCharges = montantCharges.toDouble(),
-                        statut = statut
+                        nom = nom,
+                        prenom = prenom,
+                        dateNaissance = dateNaissance,
+                        lieuNaissance = lieuNaissance
                     )
-                    Log.d("CONTRAT_ADD", "Contrat à envoyer : $contrat")
-                    viewModel.addContrat(contrat)
-                    onContratAdd()
-                } else {
-                    Log.d("CONTRAT_ADD", "App ou locataire non sélectionné")
-                    // Action si aucun appartement sélectionné (ex. message d’erreur)
-                    println("Veuillez sélectionner un appartement et un locataire.")
-                }
-            },
+                Log.d("LOCATAIRE_ADD", "Locataire à envoyer : $locataire")
+                    viewModel.addLocataire(locataire)
+                    onLocataireAdd()
+                },
             modifier = Modifier.align(Alignment.End)
 
-        ) { Spacer(modifier = Modifier.height(16.dp))
-            Text("Ajouter le contrat")
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Text("Ajouter le locataire")
         }
     }
 }

@@ -49,6 +49,8 @@ interface ApiService {
 
     @GET("api/locataires/")
     suspend fun getLocataires(): List<Locataire>
+    @POST("api/locataires/")
+    suspend fun addLocataire(@Body locataire: Locataire): Response<Locataire>
 
 
 }
