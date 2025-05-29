@@ -72,6 +72,17 @@ fun ContratCard(contrat: Contrat) { // Notez l'annotation @Composable
                     )
 
                 }
+            Row {
+                Text(
+                    text = "Statut : ",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Text(
+                    text = contrat.statut.toString(),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+            }
             }
         }
     }
