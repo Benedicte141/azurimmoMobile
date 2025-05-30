@@ -20,9 +20,11 @@ import androidx.compose.ui.unit.dp
 import bts.sio.azurimmo.model.Appartement
 
 @Composable
-    fun AppartementCard(appartement: Appartement,
-                        modeSuppressionActive: Boolean,
-                        onDeleteClick: (() -> Unit)? = null) { // Notez l'annotation @Composable
+    fun AppartementCard(
+    appartement: Appartement,
+    modeSuppressionActive: Boolean,
+    onDeleteClick: (() -> Unit)? = null // Notez l'annotation @Composable
+    ){
         Card(
 
             modifier = Modifier
@@ -32,16 +34,16 @@ import bts.sio.azurimmo.model.Appartement
             shape = RoundedCornerShape(8.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("Description : ${appartement.description}")
-                Text("Numéro : ${appartement.numero}")
-
-                if (modeSuppressionActive && onDeleteClick != null) {
-                    IconButton(onClick = onDeleteClick) {
-                        Icon(Icons.Default.Delete, contentDescription = "Supprimer")
-                    }
+                Row {
+                    Text(
+                        text = "Description : ",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Text(
+                        text = appartement.description,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
-            }
-        }
 
                 Row {
                     Text(
@@ -49,18 +51,7 @@ import bts.sio.azurimmo.model.Appartement
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                     )
                     Text(
-                        text =appartement.numero,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-
-                Row {
-                    Text(
-                        text = "Description : ",
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                    Text(
-                        text =appartement.description,
+                        text = appartement.numero,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -85,10 +76,14 @@ import bts.sio.azurimmo.model.Appartement
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
-//                Text(text = appartement.description, style = MaterialTheme.typography.bodyLarge)
-//                Text(text = appartement.surface.toString(), style = MaterialTheme.typography.bodyMedium)
-//                Text(text = appartement.numero, style = MaterialTheme.typography.bodyMedium)
-//                Text(text = appartement.nbrePieces.toString(), style = MaterialTheme.typography.bodyMedium)
 
+                if (modeSuppressionActive && onDeleteClick != null) {
+                    IconButton(onClick = onDeleteClick) {
+                        Icon(Icons.Default.Delete, contentDescription = "Supprimer")
+                    }
+                }
             }
+        }
+    }
+
 

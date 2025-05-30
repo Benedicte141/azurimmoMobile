@@ -21,6 +21,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -69,16 +70,16 @@ fun AppartementList(
         }
     }
 
-    androidx.compose.material3.Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                // Navigation vers l'écran d'ajout
-                navController.navigate("appartementAdd")
-            }) {
-                Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
-            }
-        }
-    ) { innerPadding ->
+//    androidx.compose.material3.Scaffold(
+//        floatingActionButton = {
+//            FloatingActionButton(onClick = {
+//                // Navigation vers l'écran d'ajout
+//                navController.navigate("appartementAdd")
+//            }) {
+//                Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
+//            }
+//        }
+    Scaffold() { innerPadding ->
 
         // Observer les données des appartements via le ViewModel
         Box(
@@ -154,11 +155,25 @@ fun AppartementList(
                 }
             }
 
-            Column(modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.End
+                ) {
 
-                Spacer(modifier = Modifier.height(16.dp))
-                FloatingActionButton(onClick = { modeSuppressionActive = true }) {
+                FloatingActionButton(
+                    onClick = { modeSuppressionActive = true },
+                    modifier = Modifier.padding(bottom = 12.dp)
+                    ) {
                     Icon(Icons.Default.Delete, contentDescription = "Activer la suppression")
+                }
+                FloatingActionButton(
+                    onClick = {
+                        navController.navigate("appartementAdd")
+                    }
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
                 }
             }
 

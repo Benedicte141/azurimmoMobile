@@ -29,6 +29,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         startDestination = "batiment_list",
         modifier = modifier
     ) {
+         //Ecran accueil : Liste Bâtiments
         composable("batiment_list") {
             BatimentList(
                 onBatimentClick = { batimentId ->
@@ -41,7 +42,8 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             )
         }
 
-
+        // ***************           BATIMENTS       **************************************
+        // Liste détail des appartements par IdBatiment
         composable(
             route = "batiment_appartements_list/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
@@ -60,6 +62,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
+        // Route Icône Ajouter un Batiment depuis la liste globale
         composable("add_batiment") {
             BatimentAdd(onBatimentAdd = {
                 navController.popBackStack() // La navigation est gérée ici
@@ -67,23 +70,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
 
-        composable("appartement_list") {
-            AppartementList(
-                onAddAppartementClick = {
-                    navController.navigate("appartementAdd")
-                },
-        navController = navController
-            )
-        }
 
+        // ***************           APPARTEMENTS       *********************************
+        // Route liste globale via l'icône Appartements
         composable("appartement_list") {
             AppartementList(navController = navController)
         }
 
 
-
-
-        // Route pour ajouter un appartement
+        // Route liste globale : ajouter un appartement à partir d'un IdBatiment ou
+        // de la liste globale Appartements
 
         composable("appartementAdd") {
             val appartementViewModel: AppartementViewModel = viewModel()
@@ -97,36 +93,23 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             )
         }
 
-        composable("add_appartement/{batimentId}",
-            arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
-        )
-        { backStackEntry ->
-            val batimentId = backStackEntry.arguments?.getInt("batimentId")
-            println("Ouverture de add_appartement avec batimentId = $batimentId")
-            if (batimentId != null) {
-                AppartementAdd( onAddAppartement = { navController.popBackStack()},
-                    batimentId = batimentId
-                )
-            } else {
-                Text("Erreur : Identifiant de bâtiment manquant")
-            }
-        }
-
-
-
+        // ***************           CONTRATS       *********************************
+        // Route liste globale via l'icône Contrats
         composable("contrat_list") {
             ContratList(navController = navController)
         }
-
+        // Route Icône Ajouter un Contrat depuis la liste globale
         composable("contratAdd") {
             ContratAdd(onContratAdd = { navController.popBackStack() })
         }
 
-
+        // ***************           LOCATAIRES       *********************************
+        // Route liste globale via l'icône Locataires
         composable("locataire_list") {
             LocataireList(navController)
         }
 
+        // Route Icône Ajouter un Locataire depuis la liste globale
         composable("locataireAdd") {
             LocataireAdd(onLocataireAdd = { navController.popBackStack() })
         }
