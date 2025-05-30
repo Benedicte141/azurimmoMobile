@@ -30,7 +30,9 @@ import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
 
 // Fonction Composable pour afficher la liste des locataires
 @Composable
-fun LocataireList(navController: NavController, viewModel: LocataireViewModel = viewModel()) {
+fun LocataireList(
+    navController: NavController,
+    viewModel: LocataireViewModel = viewModel()) {
 // Observer les données des locataires via le ViewModel
     val locataires = viewModel.locataires.value
     val isLoading = viewModel.isLoading.value
@@ -51,7 +53,11 @@ fun LocataireList(navController: NavController, viewModel: LocataireViewModel = 
             }
         },
         content = { paddingValues ->
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ){
                 when {
                 isLoading -> {
                     CircularProgressIndicator(

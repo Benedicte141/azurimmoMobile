@@ -21,6 +21,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -38,7 +39,7 @@ fun ContratList(navController: NavController, viewModel: ContratViewModel = view
         viewModel.getContrats()
     }
 
-    androidx.compose.material3.Scaffold(
+    Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 // Navigation vers l'écran d'ajout
@@ -46,47 +47,55 @@ fun ContratList(navController: NavController, viewModel: ContratViewModel = view
             }) {
                 Icon(Icons.Default.Add, contentDescription = "Ajouter un contrat")
             }
-        }
-    ) { innerPadding ->
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)) {
-            when {
-                isLoading -> {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                }
+        },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                when {
+                    isLoading -> {
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    }
 
-                errorMessage != null -> {
-                    Text(
-                        text = errorMessage,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp),
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
+                    errorMessage != null -> {
+                        Text(
+                            text = errorMessage,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(16.dp),
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
 
-                else -> {
-                    LazyColumn {
-                        if (contrats.isNotEmpty()) {
-                            item {
-                                Text(
-                                    text = "Liste des contrats",
-                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp),
-                                    textAlign = TextAlign.Center,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
+                    else -> {
+
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp) // ✅ padding général pour la liste
+                        ) {
+                            if (contrats.isNotEmpty()) {
+                                item {
+                                    Text(
+                                        text = "Liste des contrats",
+                                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 16.dp),
+                                        textAlign = TextAlign.Center,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
                             }
-                        }
-                        items(contrats) { contrat ->
-                            ContratCard(contrat = contrat)
+                            items(contrats) { contrat ->
+                                ContratCard(contrat = contrat)
+                            }
                         }
                     }
                 }
             }
         }
-    }
+    )
 }

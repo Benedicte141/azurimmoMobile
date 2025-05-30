@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -35,7 +36,8 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 },
                 onAddBatimentClick = {
                     navController.navigate("add_batiment")
-                }
+                },
+                navController= navController,
             )
         }
 
@@ -50,7 +52,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                     batimentId = batimentId,
                     onAddAppartementClick =  {
                     navController.navigate("add_appartement/$batimentId")
-                })
+                },
+            navController = navController
+                )
             } else {
                 Text("Erreur : Identifiant de bâtiment manquant")
             }
@@ -67,9 +71,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             AppartementList(
                 onAddAppartementClick = {
                     navController.navigate("appartementAdd")
-                }
+                },
+        navController = navController
             )
         }
+
+        composable("appartement_list") {
+            AppartementList(navController = navController)
+        }
+
+
 
 
         // Route pour ajouter un appartement

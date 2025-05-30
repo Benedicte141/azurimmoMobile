@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
@@ -43,6 +44,7 @@ import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
 // Fonction Composable pour afficher la liste des appartements
 @Composable
 fun AppartementList(
+    navController: NavController,
     viewModel: AppartementViewModel = viewModel(),
     viewModelBat: BatimentViewModel = viewModel(),
     batimentId: Int? = null,
@@ -67,114 +69,126 @@ fun AppartementList(
         }
     }
 
+    androidx.compose.material3.Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                // Navigation vers l'écran d'ajout
+                navController.navigate("appartementAdd")
+            }) {
+                Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
+            }
+        }
+    ) { innerPadding ->
 
-
-    // Observer les données des appartements via le ViewModel
-    Box(modifier = Modifier.fillMaxSize()) {
-        if (isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        } else if (errorMessage != null) {
-            Text(
-                text = errorMessage,
-                modifier = Modifier.align(Alignment.Center),
-                color = MaterialTheme.colorScheme.error
-            )
-        } else {
-            LazyColumn {
-                if (batimentId != null && batiment != null) {
-                    item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
-                                .padding(16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
+        // Observer les données des appartements via le ViewModel
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            } else if (errorMessage != null) {
+                Text(
+                    text = errorMessage,
+                    modifier = Modifier.align(Alignment.Center),
+                    color = MaterialTheme.colorScheme.error
+                )
+            } else {
+                LazyColumn {
+                    if (batimentId != null && batiment != null) {
+                        item {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "Informations sur le bâtiment",
+                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text("Adresse : ${batiment.adresse}")
+                                Text("Ville : ${batiment.ville}")
+                            }
+                        }
+                    }
+                    if (appartements.isNotEmpty()) {
+                        item {
                             Text(
-                                text = "Informations sur le bâtiment",
+                                text = "Liste des appartements",
                                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.primary
                             )
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text("Adresse : ${batiment.adresse}")
-                            Text("Ville : ${batiment.ville}")
+                        }
+                        items(appartements) { appartement ->
+                            AppartementCard(
+                                appartement = appartement,
+                                modeSuppressionActive = modeSuppressionActive,
+                                onDeleteClick = {
+                                    selectedAppartementForDelete = appartement
+                                }
+                            )
+                        }
+                    } else {
+                        item {
+                            Text(
+                                text = if (batimentId != null) "Pas d'appartement pour ce bâtiment" else "Aucun appartement trouvé",
+                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 1.dp)
+                                    .padding(16.dp),
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.primary
+                            )
                         }
                     }
                 }
-                if (appartements.isNotEmpty()) {
-                    item {
-                        Text(
-                            text = "Liste des appartements",
-                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                    items(appartements) { appartement ->
-                        AppartementCard(
-                            appartement = appartement,
-                            modeSuppressionActive = modeSuppressionActive,
-                            onDeleteClick = {
-                                selectedAppartementForDelete = appartement
-                            }
-                        )
-                    }
-                } else {
-                    item {
-                        Text(
-                            text = if (batimentId != null) "Pas d'appartement pour ce bâtiment" else "Aucun appartement trouvé",
-                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 1.dp)
-                                .padding(16.dp),
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+            }
+
+            Column(modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)) {
+
+                Spacer(modifier = Modifier.height(16.dp))
+                FloatingActionButton(onClick = { modeSuppressionActive = true }) {
+                    Icon(Icons.Default.Delete, contentDescription = "Activer la suppression")
                 }
             }
-        }
 
-        Column(modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)) {
-            FloatingActionButton(onClick = { onAddAppartementClick?.invoke() }) {
-                Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            FloatingActionButton(onClick = { modeSuppressionActive = true }) {
-                Icon(Icons.Default.Delete, contentDescription = "Activer la suppression")
-            }
-        }
-
-        selectedAppartementForDelete?.let { appartement ->
-            AlertDialog(
-                onDismissRequest = {
-                    selectedAppartementForDelete = null
-                    modeSuppressionActive = false
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        viewModel.deleteAppartementById(appartement.id)
+            selectedAppartementForDelete?.let { appartement ->
+                AlertDialog(
+                    onDismissRequest = {
                         selectedAppartementForDelete = null
                         modeSuppressionActive = false
-                    }) {
-                        Text("Confirmer")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = {
-                        selectedAppartementForDelete = null
-                        modeSuppressionActive = false
-                    }) {
-                        Text("Annuler")
-                    }
-                },
-                title = { Text("Supprimer cet appartement ?") },
-                text = { Text("Cette action est irréversible.") }
-            )
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.deleteAppartementById(appartement.id)
+                            selectedAppartementForDelete = null
+                            modeSuppressionActive = false
+                        }) {
+                            Text("Confirmer")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            selectedAppartementForDelete = null
+                            modeSuppressionActive = false
+                        }) {
+                            Text("Annuler")
+                        }
+                    },
+                    title = { Text("Supprimer cet appartement ?") },
+                    text = { Text("Cette action est irréversible.") }
+                )
+            }
         }
     }
 }
