@@ -7,5 +7,5 @@ data class Appartement(
     val nbrePieces: Int,
     val description: String,
     val batiment: Batiment,
-  //  val contrat: Contrat? = null
+    val contrat: Contrat? = null
 )
