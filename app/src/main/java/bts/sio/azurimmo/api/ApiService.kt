@@ -30,6 +30,10 @@ interface ApiService {
     suspend fun getAppartements(): List<Appartement>
     @GET("api/appartements/appartements/{id}")
     suspend fun getAppartementById(@Path("id") id: Int): Appartement
+    @GET("api/appartements/appartements/{id}/hasContrat")
+    suspend fun hasContrat(@Path("id") id: Int): Boolean
+
+
 
 
     @POST("api/appartements/")

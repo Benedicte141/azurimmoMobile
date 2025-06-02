@@ -1,6 +1,7 @@
 package bts.sio.azurimmo.views.Appartement
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,7 @@ import androidx.navigation.NavController
 import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.viewsmodel.appartement.AppartementViewModel
 import bts.sio.azurimmo.viewsmodel.batiment.BatimentViewModel
+
 
 
 // Fonction Composable pour afficher la liste des appartements
@@ -56,6 +59,7 @@ fun AppartementList(
     val batiment = viewModelBat.batiment.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
+    val context = LocalContext.current
 
     var selectedAppartementForDelete by remember { mutableStateOf<Appartement?>(null) }
     var modeSuppressionActive by remember { mutableStateOf(false) }
@@ -126,7 +130,17 @@ fun AppartementList(
                                 appartement = appartement,
                                 modeSuppressionActive = modeSuppressionActive,
                                 onDeleteClick = {
-                                    selectedAppartementForDelete = appartement
+                                    viewModel.hasContrat(appartement.id) { hasContrat ->
+                                        if (hasContrat) {
+                                            Toast.makeText(
+                                                context,
+                                                "Impossible : contrat lié à cet appartement.",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        } else {
+                                            selectedAppartementForDelete = appartement
+                                        }
+                                    }
                                 },
                                 onEditClick = {
                                     navController.navigate("appartementUpdate/${appartement.id}")
@@ -159,10 +173,12 @@ fun AppartementList(
                 ) {
 
                     FloatingActionButton(
-                        onClick = { modeSuppressionActive = true },
+                        onClick = {modeSuppressionActive = !modeSuppressionActive },
                         modifier = Modifier.padding(bottom = 12.dp)
                     ) {
-                        Icon(Icons.Default.Delete, contentDescription = "Activer la suppression")
+                       Icon( imageVector = Icons.Default.Delete,
+                        contentDescription = if (modeSuppressionActive) "Désactiver la suppression" else "Activer la suppression"
+                        )
                     }
                     FloatingActionButton(
                         onClick = {

@@ -82,7 +82,7 @@ import bts.sio.azurimmo.model.Appartement
 
             // Boutons Modifier / Supprimer
             Row(
-                horizontalArrangement = Arrangement.End,
+                horizontalArrangement = Arrangement.Start,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 onEditClick?.let {

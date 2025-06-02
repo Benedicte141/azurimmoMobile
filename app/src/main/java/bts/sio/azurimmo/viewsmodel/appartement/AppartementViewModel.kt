@@ -18,11 +18,15 @@ class AppartementViewModel : ViewModel() {
 
 
     val isLoading: State<Boolean> = _isLoading
+
+
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
 
     private val _appartement = mutableStateOf<Appartement?>(null)
     val appartement: State<Appartement?> = _appartement
+
+
     init {
 // Simuler un chargement de données initiales
         getAppartements()
@@ -144,6 +148,18 @@ class AppartementViewModel : ViewModel() {
                 _errorMessage.value = "Erreur : ${e.message}"
             } finally {
                 _isLoading.value = false
+            }
+        }
+    }
+
+    fun hasContrat(appartementId: Int, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val result = RetrofitInstance.api.hasContrat(appartementId)
+                onResult(result)
+            } catch (e: Exception) {
+                Log.e("AppartementViewModel", "Erreur hasContrat: ${e.message}")
+                onResult(false)
             }
         }
     }
