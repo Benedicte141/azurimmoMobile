@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import bts.sio.azurimmo.views.Appartement.AppartementAdd
 import bts.sio.azurimmo.views.Appartement.AppartementList
+import bts.sio.azurimmo.views.Appartement.AppartementUpdate
 import bts.sio.azurimmo.views.Batiment.BatimentAdd
 import bts.sio.azurimmo.views.Batiment.BatimentList
 import bts.sio.azurimmo.views.Contrat.ContratAdd
@@ -91,6 +92,15 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 },
                 batimentId = null
             )
+        }
+
+        // Route modifier un appartement
+        composable(
+            "appartementUpdate/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val appartementId = backStackEntry.arguments?.getInt("id") ?: return@composable
+            AppartementUpdate(appartementId = appartementId, navController = navController)
         }
 
         // ***************           CONTRATS       *********************************

@@ -70,15 +70,7 @@ fun AppartementList(
         }
     }
 
-//    androidx.compose.material3.Scaffold(
-//        floatingActionButton = {
-//            FloatingActionButton(onClick = {
-//                // Navigation vers l'écran d'ajout
-//                navController.navigate("appartementAdd")
-//            }) {
-//                Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
-//            }
-//        }
+
     Scaffold() { innerPadding ->
 
         // Observer les données des appartements via le ViewModel
@@ -135,74 +127,79 @@ fun AppartementList(
                                 modeSuppressionActive = modeSuppressionActive,
                                 onDeleteClick = {
                                     selectedAppartementForDelete = appartement
+                                },
+                                onEditClick = {
+                                    navController.navigate("appartementUpdate/${appartement.id}")
                                 }
                             )
                         }
+
                     } else {
-                        item {
-                            Text(
-                                text = if (batimentId != null) "Pas d'appartement pour ce bâtiment" else "Aucun appartement trouvé",
-                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 1.dp)
-                                    .padding(16.dp),
-                                textAlign = TextAlign.Center,
-                                color = MaterialTheme.colorScheme.primary
-                            )
+                            item {
+                                Text(
+                                    text = if (batimentId != null) "Pas d'appartement pour ce bâtiment" else "Aucun appartement trouvé",
+                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 1.dp)
+                                        .padding(16.dp),
+                                    textAlign = TextAlign.Center,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
                     }
-                }
-            }
 
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.End
+
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.End
                 ) {
 
-                FloatingActionButton(
-                    onClick = { modeSuppressionActive = true },
-                    modifier = Modifier.padding(bottom = 12.dp)
+                    FloatingActionButton(
+                        onClick = { modeSuppressionActive = true },
+                        modifier = Modifier.padding(bottom = 12.dp)
                     ) {
-                    Icon(Icons.Default.Delete, contentDescription = "Activer la suppression")
-                }
-                FloatingActionButton(
-                    onClick = {
-                        navController.navigate("appartementAdd")
+                        Icon(Icons.Default.Delete, contentDescription = "Activer la suppression")
                     }
-                ) {
-                    Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
+                    FloatingActionButton(
+                        onClick = {
+                            navController.navigate("appartementAdd")
+                        }
+                    ) {
+                        Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
+                    }
                 }
-            }
 
-            selectedAppartementForDelete?.let { appartement ->
-                AlertDialog(
-                    onDismissRequest = {
-                        selectedAppartementForDelete = null
-                        modeSuppressionActive = false
-                    },
-                    confirmButton = {
-                        TextButton(onClick = {
-                            viewModel.deleteAppartementById(appartement.id)
+                selectedAppartementForDelete?.let { appartement ->
+                    AlertDialog(
+                        onDismissRequest = {
                             selectedAppartementForDelete = null
                             modeSuppressionActive = false
-                        }) {
-                            Text("Confirmer")
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = {
-                            selectedAppartementForDelete = null
-                            modeSuppressionActive = false
-                        }) {
-                            Text("Annuler")
-                        }
-                    },
-                    title = { Text("Supprimer cet appartement ?") },
-                    text = { Text("Cette action est irréversible.") }
-                )
+                        },
+                        confirmButton = {
+                            TextButton(onClick = {
+                                viewModel.deleteAppartementById(appartement.id)
+                                selectedAppartementForDelete = null
+                                modeSuppressionActive = false
+                            }) {
+                                Text("Confirmer")
+                            }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = {
+                                selectedAppartementForDelete = null
+                                modeSuppressionActive = false
+                            }) {
+                                Text("Annuler")
+                            }
+                        },
+                        title = { Text("Supprimer cet appartement ?") },
+                        text = { Text("Cette action est irréversible.") }
+                    )
+                }
             }
         }
     }

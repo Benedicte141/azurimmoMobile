@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import bts.sio.azurimmo.api.RetrofitInstance
 import kotlinx.coroutines.launch
 
-
 class AppartementViewModel : ViewModel() {
 
     // Liste mutable des appartements
@@ -21,6 +20,9 @@ class AppartementViewModel : ViewModel() {
     val isLoading: State<Boolean> = _isLoading
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
+
+    private val _appartement = mutableStateOf<Appartement?>(null)
+    val appartement: State<Appartement?> = _appartement
     init {
 // Simuler un chargement de données initiales
         getAppartements()
@@ -113,4 +115,38 @@ class AppartementViewModel : ViewModel() {
             }
         }
     }
+
+    fun getAppartementById(id: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val result = RetrofitInstance.api.getAppartementById(id)
+                _appartement.value = result
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun updateAppartement(appartement: Appartement) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.updateAppartement(appartement.id, appartement)
+                if (response.isSuccessful) {
+                    loadAllAppartements() // recharge la liste mise à jour
+                } else {
+                    _errorMessage.value = "Erreur mise à jour : ${response.message()}"
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
 }
