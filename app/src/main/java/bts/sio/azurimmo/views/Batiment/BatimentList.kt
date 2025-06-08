@@ -48,7 +48,7 @@ fun BatimentList(
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 // Navigation vers l'écran d'ajout
-                navController.navigate("batimentAdd")
+                navController.navigate("add_batiment")
             }) {
                 Icon(Icons.Default.Add, contentDescription = "Ajouter un batiment")
             }

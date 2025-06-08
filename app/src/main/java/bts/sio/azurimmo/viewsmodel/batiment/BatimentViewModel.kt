@@ -66,25 +66,49 @@ class BatimentViewModel : ViewModel() {
             }
         }
 
+//    fun addBatiment(batiment: Batiment) {
+//        viewModelScope.launch {
+//            _isLoading.value = true
+//            try {
+//
+//                // Envoi à l'API (ici, un POST)
+//                val response = RetrofitInstance.api.addBatiment(batiment)
+//                if (response.isSuccessful) {
+//                    // Ajout réussi, on met à jour la liste des bâtiments
+//                    getBatiments() // Recharge les bâtiments pour inclure le nouveau
+//                } else {
+//                    _errorMessage.value = "Erreur lors de l'ajout du bâtiment : ${response.message()}"
+//                }
+//            } catch (e: Exception) {
+//                _errorMessage.value = "Erreur : ${e.message}"
+//            } finally {
+//                _isLoading.value = false
+//            }
+//
+//        }
+//    }
+
     fun addBatiment(batiment: Batiment) {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-
-                // Envoi à l'API (ici, un POST)
                 val response = RetrofitInstance.api.addBatiment(batiment)
                 if (response.isSuccessful) {
-                    // Ajout réussi, on met à jour la liste des bâtiments
-                    getBatiments() // Recharge les bâtiments pour inclure le nouveau
+                    println("Bâtiment ajouté avec succès")
+                    getBatiments()
                 } else {
-                    _errorMessage.value = "Erreur lors de l'ajout du bâtiment : ${response.message()}"
+                    val errorBody = response.errorBody()?.string()
+                    println("Erreur HTTP : ${response.code()} - ${response.message()}")
+                    println("Erreur body : $errorBody")
+                    _errorMessage.value = "Erreur lors de l'ajout : ${response.message()}"
                 }
             } catch (e: Exception) {
+                println("Exception Retrofit : ${e.message}")
                 _errorMessage.value = "Erreur : ${e.message}"
             } finally {
                 _isLoading.value = false
             }
-
         }
     }
+
 }
